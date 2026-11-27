@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>World news — Thursday, 26 November 2026</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; width: 1024px; height: 1024px; overflow: hidden; }
+  body {
+    background: #F6F1E7;
+    color: #111827;
+    font-family: 'Albert Sans', 'Liberation Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: geometricPrecision;
+  }
+  .page {
+    width: 1024px; height: 1024px; padding: 20px 24px;
+    display: flex; flex-direction: column; gap: 8px;
+    background: #F6F1E7;
+  }
+
+  /* ---------- masthead ---------- */
+  .masthead { height: 110px; flex: none; display: flex; flex-direction: column; justify-content: space-between; }
+  .mast-top, .mast-foot { display: flex; justify-content: space-between; align-items: center; }
+  .mast-top { font: 800 13px/1 'Albert Sans', sans-serif; letter-spacing: .18em; text-transform: uppercase; color: #B91C1C; }
+  .mast-top .left::before { content: ''; display: inline-block; width: 10px; height: 10px; margin-right: 10px; background: #B91C1C; }
+  .mast-date {
+    font: 48px/1.35 'Alfa Slab One', 'Liberation Serif', serif; letter-spacing: -.025em;
+    white-space: nowrap; color: #111827;
+  }
+  .mast-rule { height: 7px; background: #111827; border-bottom: 3px solid #B91C1C; flex: none; }
+  .mast-foot { font: 800 12px/1 'Albert Sans', sans-serif; letter-spacing: .1em; text-transform: uppercase; color: #334155; }
+
+  /* ---------- lead story ---------- */
+  .hero { height: 312px; flex: none; display: flex; background: #FFFCF4; border: 2px solid #111827; }
+  .hero-text { width: 59%; padding: 14px 20px 12px; display: flex; flex-direction: column; }
+  .kicker { font: 800 14px/1.1 'Albert Sans', sans-serif; letter-spacing: .14em; text-transform: uppercase; color: #B91C1C; }
+  .hero h1 {
+    margin: 8px 0 6px; font: 36px/1.05 'Archivo Black', 'Liberation Sans', sans-serif;
+    letter-spacing: -.025em; text-transform: uppercase; color: #111827;
+  }
+  .hero .deck { margin: 0; font: 600 16px/1.17 'Alegreya Sans', sans-serif; color: #334155; }
+  .hero .loc {
+    margin-top: auto; padding-top: 8px; border-top: 3px solid #D97706;
+    font: 800 13px/1.1 'Albert Sans', sans-serif; letter-spacing: .1em;
+    text-transform: uppercase; color: #0F766E;
+  }
+  .hero-art { width: 41%; border-left: 2px solid #111827; background: #0F766E; overflow: hidden; }
+  .hero-art svg { display: block; width: 100%; height: 100%; }
+
+  /* ---------- four story grid ---------- */
+  .middle { height: 356px; flex: none; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 174px 174px; gap: 8px; }
+  .panel { background: #FFFCF4; border: 2px solid #111827; display: flex; flex-direction: column; overflow: hidden; }
+  .bar {
+    height: 24px; flex: none; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 9px; color: #F6F1E7; font: 800 12px/1 'Albert Sans', sans-serif;
+    letter-spacing: .08em; text-transform: uppercase;
+  }
+  .bar.crimson { background: #B91C1C; }
+  .bar.teal { background: #0F766E; }
+  .bar.amber { background: #D97706; }
+  .bar.slate { background: #334155; }
+  .bar .bar-right { font-size: 11px; letter-spacing: .06em; opacity: .92; }
+  .panel-body { flex: 1; min-height: 0; display: flex; }
+  .art { width: 33%; flex: none; border-right: 2px solid #111827; background: #F6F1E7; overflow: hidden; }
+  .art svg { display: block; width: 100%; height: 100%; }
+  .copy { flex: 1; min-width: 0; padding: 8px 10px; display: flex; flex-direction: column; }
+  .copy h2 {
+    margin: 0 0 4px; font: 22px/1.05 'Archivo Black', 'Liberation Sans', sans-serif;
+    letter-spacing: -.025em; text-transform: uppercase; color: #111827;
+  }
+  .copy p { margin: 0; font: 600 14px/1.13 'Alegreya Sans', sans-serif; color: #334155; }
+
+  /* ---------- climate strip ---------- */
+  .climate { height: 118px; flex: none; display: flex; border: 2px solid #111827; background: #FFFCF4; }
+  .climate-art { width: 25%; flex: none; border-right: 2px solid #111827; background: #0F766E; overflow: hidden; }
+  .climate-art svg { display: block; width: 100%; height: 100%; }
+  .climate-copy { flex: 1; min-width: 0; padding: 9px 16px; display: flex; flex-direction: column; justify-content: center; }
+  .climate-copy .kicker { font-size: 13px; margin-bottom: 5px; }
+  .climate-copy h2 {
+    margin: 0 0 5px; font: 26px/1.05 'Archivo Black', 'Liberation Sans', sans-serif;
+    letter-spacing: -.025em; text-transform: uppercase; color: #111827; white-space: nowrap;
+  }
+  .climate-copy p { margin: 0; font: 600 15px/1.18 'Alegreya Sans', sans-serif; color: #334155; }
+  .climate-copy .tag { margin-top: 6px; font: 800 12px/1 'Albert Sans', sans-serif; letter-spacing: .1em; color: #0F766E; text-transform: uppercase; }
+
+  /* ---------- bottom ticker ---------- */
+  .ticker { height: 52px; flex: none; display: flex; border: 2px solid #111827; background: #111827; }
+  .ticker-label {
+    width: 120px; flex: none; background: #B91C1C; display: flex; align-items: center; justify-content: center;
+    color: #F6F1E7; font: 800 13px/1 'Albert Sans', sans-serif; letter-spacing: .1em;
+  }
+  .ticker-text {
+    flex: 1; min-width: 0; padding: 5px 12px; display: flex; align-items: center;
+    color: #F6F1E7; font: 600 15px/1.17 'Alegreya Sans', sans-serif;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="mast-top">
+      <span class="left">The world in one day</span>
+      <span>Global edition · No. 26/11</span>
+    </div>
+    <div class="mast-date">THURSDAY · 26 NOVEMBER 2026</div>
+    <div class="mast-rule"></div>
+    <div class="mast-foot">
+      <span>Trade · Conflict · Disaster · Europe · Climate</span>
+      <span>Global dispatch · Thursday edition</span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <div class="kicker">Trade / United States — 14 partners</div>
+      <h1>Trump proposes new tariffs on 14 trading partners</h1>
+      <p class="deck">China, Japan and the EU are among them. Proposed maximum rates of 20–40% over 'excess industrial capacity', capped at levels agreed in trade deals; China calls it 'unilateral action'.</p>
+      <div class="loc">Container ships · tariff tag · rising rates</div>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 400 306" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Container ship and crates beside a tariff tag, fourteen partner flags and a rising bar chart">
+        <rect width="400" height="306" fill="#0F766E"/>
+        <rect x="8" y="8" width="384" height="104" fill="#F6F1E7" stroke="#111827" stroke-width="3"/>
+
+        <g fill="#334155">
+          <rect x="24" y="78" width="14" height="14"/>
+          <rect x="42" y="66" width="14" height="26"/>
+          <rect x="60" y="52" width="14" height="40"/>
+          <rect x="78" y="34" width="14" height="58"/>
+        </g>
+        <rect x="24" y="30" width="14" height="48" fill="#D97706"/>
+        <rect x="78" y="34" width="14" height="58" fill="#B91C1C"/>
+        <path d="M22 28l20-12 20 6 22-16 16 4" fill="none" stroke="#B91C1C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M86 10l14-4-4 14z" fill="#B91C1C"/>
+        <text x="24" y="106" font-family="Albert Sans, sans-serif" font-size="9" font-weight="800" letter-spacing=".5" fill="#111827">20–40% PROPOSED</text>
+
+        <text x="122" y="30" font-family="Archivo Black, sans-serif" font-size="17" fill="#111827">TARIFFS</text>
+        <g stroke="#111827" stroke-width="1.5">
+          <path d="M126 46v14M158 46v14M190 46v14M222 46v14M254 46v14M286 46v14M318 46v14"/>
+          <path d="M126 78v14M158 78v14M190 78v14M222 78v14M254 78v14M286 78v14M318 78v14"/>
+        </g>
+        <g fill="#B91C1C"><rect x="127" y="46" width="10" height="7"/><rect x="191" y="46" width="10" height="7"/><rect x="255" y="46" width="10" height="7"/><rect x="319" y="46" width="10" height="7"/><rect x="159" y="78" width="10" height="7"/><rect x="223" y="78" width="10" height="7"/><rect x="287" y="78" width="10" height="7"/></g>
+        <g fill="#D97706"><rect x="159" y="46" width="10" height="7"/><rect x="223" y="46" width="10" height="7"/><rect x="287" y="46" width="10" height="7"/><rect x="127" y="78" width="10" height="7"/><rect x="191" y="78" width="10" height="7"/><rect x="255" y="78" width="10" height="7"/><rect x="319" y="78" width="10" height="7"/></g>
+        <text x="122" y="108" font-family="Albert Sans, sans-serif" font-size="10" font-weight="800" letter-spacing="1.2" fill="#334155">14 PARTNERS</text>
+
+        <g fill="none" stroke="#F6F1E7" stroke-width="2" opacity=".5">
+          <path d="M6 150c26-9 52-9 78 0s52 9 78 0 52-9 78 0 52 9 78 0"/>
+          <path d="M6 190c26-9 52-9 78 0s52 9 78 0 52-9 78 0 52 9 78 0"/>
+          <path d="M6 230c26-9 52-9 78 0s52 9 78 0 52-9 78 0 52 9 78 0"/>
+          <path d="M6 270c26-9 52-9 78 0s52 9 78 0 52-9 78 0 52 9 78 0"/>
+        </g>
+
+        <g>
+          <rect x="28" y="174" width="46" height="34" fill="#B91C1C" stroke="#111827" stroke-width="2"/>
+          <rect x="78" y="174" width="46" height="34" fill="#D97706" stroke="#111827" stroke-width="2"/>
+          <rect x="128" y="174" width="46" height="34" fill="#F6F1E7" stroke="#111827" stroke-width="2"/>
+          <rect x="178" y="174" width="46" height="34" fill="#334155" stroke="#111827" stroke-width="2"/>
+          <rect x="52" y="142" width="46" height="30" fill="#D97706" stroke="#111827" stroke-width="2"/>
+          <rect x="102" y="142" width="46" height="30" fill="#F6F1E7" stroke="#111827" stroke-width="2"/>
+          <rect x="152" y="142" width="46" height="30" fill="#B91C1C" stroke="#111827" stroke-width="2"/>
+          <g stroke="#111827" stroke-width="1"><path d="M67 174v30M117 174v30M167 174v30M75 142v30M125 142v30M175 142v30"/></g>
+        </g>
+
+        <path d="M16 210h360l-22 44H38z" fill="#111827"/>
+        <rect x="240" y="188" width="34" height="22" fill="#334155" stroke="#111827" stroke-width="2"/>
+        <rect x="278" y="196" width="24" height="14" fill="#D97706"/>
+        <path d="M292 188v-26" stroke="#111827" stroke-width="3"/>
+        <rect x="268" y="124" width="112" height="38" fill="#F6F1E7" stroke="#111827" stroke-width="3"/>
+        <text x="324" y="149" text-anchor="middle" font-family="Archivo Black, sans-serif" font-size="16" fill="#B91C1C">TARIFF</text>
+      </svg>
+    </div>
+  </section>
+
+  <section class="middle">
+
+    <article class="panel">
+      <div class="bar teal"><span>Iran / Shipping</span><span class="bar-right">Strait of Hormuz</span></div>
+      <div class="panel-body">
+        <div class="art">
+          <svg viewBox="0 0 160 142" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two burning tankers in the Strait of Hormuz channel with a naval mine buoy">
+            <rect width="160" height="142" fill="#F6F1E7"/>
+            <path d="M0 0h46l10 48-18 22H0z" fill="#334155"/>
+            <path d="M160 0h-42l-12 46 20 24h34z" fill="#334155"/>
+            <text x="6" y="20" font-family="Albert Sans, sans-serif" font-size="9" font-weight="800" letter-spacing="1" fill="#F6F1E7">IRAN</text>
+            <text x="126" y="20" font-family="Albert Sans, sans-serif" font-size="9" font-weight="800" letter-spacing="1" fill="#F6F1E7">OMAN</text>
+            <rect y="58" width="160" height="84" fill="#0F766E"/>
+            <g fill="none" stroke="#F6F1E7" stroke-width="1.5" opacity=".5"><path d="M4 76c18-7 36-7 54 0s36 7 54 0 36-7 52 0"/><path d="M4 104c18-7 36-7 54 0s36 7 54 0 36-7 52 0"/><path d="M4 132c18-7 36-7 54 0s36 7 54 0 36-7 52 0"/></g>
+            <g transform="translate(8 72) rotate(-7 46 20)">
+              <path d="M0 24h96l-12 18H12z" fill="#111827"/>
+              <rect x="12" y="10" width="54" height="14" fill="#334155" stroke="#111827" stroke-width="1.5"/>
+              <rect x="70" y="0" width="18" height="24" fill="#111827"/>
+              <rect x="22" y="14" width="10" height="6" fill="#D97706"/>
+              <rect x="40" y="14" width="10" height="6" fill="#B91C1C"/>
+              <path d="M30 10c-8-14 8-18 2-32 16 12 18 23 9 32z" fill="#D97706" stroke="#B91C1C" stroke-width="1.5"/>
+              <path d="M54 10c-6-11 6-15 2-26 12 9 14 18 7 26z" fill="#B91C1C"/>
+            </g>
+            <g transform="translate(56 110) rotate(6 40 18)">
+              <path d="M0 20h84l-11 16H11z" fill="#111827"/>
+              <rect x="10" y="8" width="48" height="12" fill="#334155" stroke="#111827" stroke-width="1.5"/>
+              <rect x="62" y="0" width="16" height="20" fill="#111827"/>
+              <path d="M24 8c-7-12 7-15 2-27 14 10 16 19 8 27z" fill="#D97706" stroke="#B91C1C" stroke-width="1.5"/>
+              <path d="M44 8c-5-9 5-12 2-21 10 8 12 15 6 21z" fill="#B91C1C"/>
+            </g>
+            <g transform="translate(132 72)">
+              <path d="M0-16v32M-16 0h32M-11-11l22 22M11-11L-11 11" stroke="#111827" stroke-width="3" stroke-linecap="round"/>
+              <circle r="11" fill="#111827"/>
+              <circle r="4" fill="#B91C1C"/>
+              <text x="0" y="30" text-anchor="middle" font-family="Albert Sans, sans-serif" font-size="9" font-weight="800" fill="#111827">MINE</text>
+            </g>
+          </svg>
+        </div>
+        <div class="copy">
+          <h2>Tankers hit mines in Hormuz</h2>
+          <p>Revolutionary Guards say both caught fire north of Oman's Khasab port; one carried over 2 million barrels of crude.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="panel">
+      <div class="bar crimson"><span>Egypt / Disaster</span><span class="bar-right">Cairo Ring Road</span></div>
+      <div class="panel-body">
+        <div class="art">
+          <svg viewBox="0 0 160 142" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Overturned fuel tanker, flames and burnt cars on the Cairo Ring Road">
+            <rect width="160" height="142" fill="#F6F1E7"/>
+            <rect y="104" width="160" height="38" fill="#334155"/>
+            <path d="M0 118h160" stroke="#F6F1E7" stroke-width="2" opacity=".7"/>
+            <text x="8" y="18" font-family="Albert Sans, sans-serif" font-size="10" font-weight="800" letter-spacing="1.2" fill="#111827">RING ROAD</text>
+            <g transform="translate(8 44) rotate(-24 52 28)">
+              <rect x="0" y="16" width="96" height="30" rx="15" fill="#B91C1C" stroke="#111827" stroke-width="2.5"/>
+              <rect x="84" y="20" width="16" height="22" fill="#111827"/>
+              <rect x="10" y="24" width="13" height="14" fill="#F6F1E7"/>
+              <circle cx="24" cy="48" r="8" fill="#111827"/>
+              <circle cx="76" cy="48" r="8" fill="#111827"/>
+            </g>
+            <path d="M28 104c-13-22 10-27 2-48 23 15 27 34 14 48z" fill="#D97706" stroke="#B91C1C" stroke-width="2"/>
+            <path d="M62 102c-10-17 8-21 2-37 18 12 20 25 11 37z" fill="#B91C1C"/>
+            <g fill="#111827">
+              <path d="M94 118h28l5-12H92z"/><rect x="99" y="106" width="10" height="8" fill="#B91C1C"/>
+              <circle cx="101" cy="120" r="4" fill="#334155"/><circle cx="117" cy="120" r="4" fill="#334155"/>
+              <path d="M130 121h20l4-9h-22z"/><rect x="134" y="112" width="7" height="7" fill="#D97706"/>
+              <circle cx="134" cy="123" r="3" fill="#334155"/><circle cx="146" cy="123" r="3" fill="#334155"/>
+            </g>
+            <g transform="translate(136 62)">
+              <rect x="0" y="12" width="4" height="20" fill="#111827"/>
+              <path d="M-5 12h14l-3-7H2z" fill="#D97706" stroke="#B91C1C" stroke-width="1.5"/>
+              <path d="M2 5l-4-8 5 3 2-7 4 9z" fill="#B91C1C"/>
+            </g>
+          </svg>
+        </div>
+        <div class="copy">
+          <h2>Cairo fuel-tanker fire kills 31</h2>
+          <p>Tanker overturned on the Ring Road in rush hour after a collision and burned 27 vehicles; the driver is detained.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="panel">
+      <div class="bar slate"><span>Ukraine / War</span><span class="bar-right">Kyiv · Kharkiv · Odesa</span></div>
+      <div class="panel-body">
+        <div class="art">
+          <svg viewBox="0 0 160 142" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="City skyline under missile trails and a grain ship near Odesa">
+            <rect width="160" height="142" fill="#F6F1E7"/>
+            <text x="6" y="15" font-family="Albert Sans, sans-serif" font-size="9" font-weight="800" letter-spacing="1" fill="#111827">KYIV · KHARKIV</text>
+            <g fill="#334155">
+              <rect x="6" y="56" width="16" height="40"/><rect x="24" y="42" width="14" height="54"/>
+              <path d="M24 42l7-11 7 11z"/><rect x="42" y="60" width="18" height="36"/>
+              <path d="M42 60l9-9 9 9z"/><rect x="64" y="48" width="12" height="48"/>
+              <path d="M64 48l6-9 6 9z"/><rect x="82" y="58" width="20" height="38"/>
+              <rect x="108" y="46" width="14" height="50"/><path d="M108 46l7-10 7 10z"/>
+              <rect x="128" y="60" width="18" height="36"/><rect x="150" y="52" width="10" height="44"/>
+            </g>
+            <g fill="#F6F1E7" opacity=".8"><rect x="29" y="50" width="4" height="5"/><rect x="39" y="50" width="4" height="5"/><rect x="68" y="56" width="4" height="5"/><rect x="88" y="66" width="4" height="5"/><rect x="113" y="54" width="4" height="5"/><rect x="134" y="68" width="4" height="5"/></g>
+            <g stroke="#B91C1C" stroke-width="2" stroke-dasharray="5 4" fill="none">
+              <path d="M150 20L120 58"/><path d="M126 16L92 55"/><path d="M104 22L76 52"/>
+            </g>
+            <g fill="#B91C1C"><path d="M120 58l-2-8 7 4z"/><path d="M92 55l-2-8 7 4z"/><path d="M76 52l-2-8 7 4z"/></g>
+            <rect y="98" width="160" height="44" fill="#0F766E"/>
+            <g fill="none" stroke="#F6F1E7" stroke-width="1.5" opacity=".5"><path d="M4 114h40M62 132h44M118 118h38"/></g>
+            <g transform="translate(58 104)">
+              <path d="M0 24h82l-10 16H11z" fill="#111827"/>
+              <rect x="16" y="10" width="42" height="14" fill="#F6F1E7" stroke="#111827" stroke-width="1.5"/>
+              <rect x="62" y="2" width="16" height="22" fill="#334155"/>
+              <text x="37" y="21" text-anchor="middle" font-family="Albert Sans, sans-serif" font-size="7" font-weight="800" fill="#111827">GRAIN</text>
+            </g>
+            <text x="8" y="110" font-family="Albert Sans, sans-serif" font-size="8" font-weight="800" letter-spacing="1" fill="#F6F1E7">ODESA</text>
+          </svg>
+        </div>
+        <div class="copy">
+          <h2>Kyiv, Kharkiv hit; grain ships struck</h2>
+          <p>Overnight missiles and drones: 7 wounded in Kyiv, at least 3 killed in Kharkiv; Ukraine says it downed 87 targets.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="panel">
+      <div class="bar amber"><span>EU / Brussels</span><span class="bar-right">2028–34 budget</span></div>
+      <div class="panel-body">
+        <div class="art">
+          <svg viewBox="0 0 160 142" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A ring of twelve EU stars above a Brussels summit table">
+            <rect width="160" height="142" fill="#111827"/>
+            <defs>
+              <path id="eu-star" d="M0-6L1.5-1.8L6-1.8L2.4 1L3.8 5.4L0 3L-3.8 5.4L-2.4 1L-6-1.8L-1.5-1.8z"/>
+            </defs>
+            <g fill="#D97706">
+              <use href="#eu-star" x="80" y="12"/><use href="#eu-star" x="97" y="16"/><use href="#eu-star" x="110" y="29"/>
+              <use href="#eu-star" x="115" y="46"/><use href="#eu-star" x="110" y="63"/><use href="#eu-star" x="97" y="76"/>
+              <use href="#eu-star" x="80" y="80"/><use href="#eu-star" x="63" y="76"/><use href="#eu-star" x="50" y="63"/>
+              <use href="#eu-star" x="45" y="46"/><use href="#eu-star" x="50" y="29"/><use href="#eu-star" x="63" y="16"/>
+            </g>
+            <text x="80" y="54" text-anchor="middle" font-family="Archivo Black, sans-serif" font-size="12" fill="#F6F1E7">EU</text>
+            <ellipse cx="80" cy="112" rx="58" ry="18" fill="#334155" stroke="#F6F1E7" stroke-width="2"/>
+            <g fill="#D97706" stroke="#111827" stroke-width="1.5">
+              <circle cx="36" cy="96" r="6"/><circle cx="60" cy="88" r="6"/><circle cx="100" cy="88" r="6"/><circle cx="124" cy="96" r="6"/>
+              <circle cx="42" cy="128" r="6"/><circle cx="118" cy="128" r="6"/>
+            </g>
+            <text x="80" y="140" text-anchor="middle" font-family="Albert Sans, sans-serif" font-size="9" font-weight="800" letter-spacing="1" fill="#F6F1E7">BRUSSELS</text>
+          </svg>
+        </div>
+        <div class="copy">
+          <h2>EU leaders clash on 2028–34 budget</h2>
+          <p>Meloni: 'light-years away from a solution' at the Brussels summit on a budget of nearly 1.6 trillion euros.</p>
+        </div>
+      </div>
+    </article>
+
+  </section>
+
+  <article class="climate">
+    <div class="climate-art">
+      <svg viewBox="0 0 244 114" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Earth beside a thermometer reading two degrees Celsius above pre-industrial levels">
+        <rect width="244" height="114" fill="#0F766E"/>
+        <circle cx="62" cy="57" r="42" fill="#F6F1E7" stroke="#111827" stroke-width="3"/>
+        <path d="M30 38c10-8 22-4 28 4s16 8 24 4 10-12 20-8c4 16-2 30-12 40-16 12-38 10-50-2-8-8-10-22-10-38z" fill="#334155"/>
+        <path d="M22 57h80M62 15v84" stroke="#F6F1E7" stroke-width="1.5" opacity=".8" fill="none"/>
+        <g stroke="#F6F1E7" stroke-width="2">
+          <rect x="136" y="20" width="12" height="62" rx="6" fill="#F6F1E7"/>
+          <path d="M148 32h6M148 44h6M148 56h6M148 68h6"/>
+        </g>
+        <rect x="140" y="26" width="4" height="52" fill="#B91C1C"/>
+        <circle cx="142" cy="86" r="11" fill="#B91C1C" stroke="#111827" stroke-width="2.5"/>
+        <text x="206" y="58" text-anchor="middle" font-family="Archivo Black, sans-serif" font-size="32" fill="#F6F1E7">2°C</text>
+        <text x="206" y="80" text-anchor="middle" font-family="Albert Sans, sans-serif" font-size="10" font-weight="800" letter-spacing="1" fill="#F6F1E7">6 DAYS</text>
+      </svg>
+    </div>
+    <div class="climate-copy">
+      <div class="kicker">Climate / Global</div>
+      <h2>Six days 2°C above pre-industrial</h2>
+      <p>First time on record that the world has had six consecutive days 2°C above pre-industrial levels.</p>
+      <div class="tag">Temperature record · first time on record</div>
+    </div>
+  </article>
+
+  <footer class="ticker">
+    <div class="ticker-label">Also today</div>
+    <div class="ticker-text">US: Storms and flooding hit Thanksgiving travel · UK: Net migration falls to 77,000, lowest since 1997 excluding pandemic · Serbia: presidential election set for 27 December</div>
+  </footer>
+
+</div>
+</body>
+</html>
